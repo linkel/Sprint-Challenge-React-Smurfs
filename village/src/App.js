@@ -6,6 +6,7 @@ import axios from 'axios';
 import {Route} from 'react-router-dom';
 import AppBar from '@material-ui/core/AppBar';
 import {NavLink} from 'react-router-dom';
+import SingleSmurf from './components/SingleSmurf';
 
 class App extends Component {
   constructor(props) {
@@ -57,6 +58,15 @@ class App extends Component {
           </AppBar>
         <Route exact path="/smurf-form" render={(props) => <SmurfForm handleStateUpdate={this.handleStateUpdate} {...props}/>}/>
         <Route exact path="/" render={(props) => <Smurfs handleEdit={this.handleEdit} handleDelete={this.handleDelete} smurfs={this.state.smurfs} {...props}/>}/>
+        <Route
+          path="/smurf/:smurfId"
+          render={props => (
+            <SingleSmurf
+              {...props}
+              smurfs={this.state.smurfs}
+            />
+          )}
+        />
       </div>
     );
   }
