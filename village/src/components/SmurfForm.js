@@ -26,8 +26,10 @@ class SmurfForm extends Component {
           age: this.state.age,
           height: this.state.height
         })
-        .then(this.showSnackBar())
-        .then(res => this.props.handleStateUpdate(res.data))
+        .then(res => { 
+          this.props.handleStateUpdate(res.data)
+          this.showSnackBar();
+        })
         .catch(err => alert(err))
     } else {
       axios
