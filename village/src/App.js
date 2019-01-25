@@ -8,8 +8,6 @@ import AppBar from '@material-ui/core/AppBar';
 import lightBlue from "@material-ui/core/colors/lightBlue";
 import {NavLink} from 'react-router-dom';
 
-const primary = lightBlue[500]; // #F44336
-
 class App extends Component {
   constructor(props) {
     super(props);
@@ -30,6 +28,17 @@ class App extends Component {
     this.setState({smurfs : obj})
   }
 
+  handleDelete = (smurf_id) => {
+    axios
+      .delete(`http://localhost:3333/smurfs/${smurf_id}`)
+      .then(response => {
+        this.setState({smurfs: response.data})
+      })
+      .catch(err => {
+        console.log(err)
+      });
+  }
+
   render() {
     return (
       <div className="App">
@@ -37,7 +46,7 @@ class App extends Component {
           <h1><NavLink exact to="/" activeClassName="active">List o' Smurfs</NavLink></h1><h1><NavLink to="/smurf-form" activeClassName="active">Add to the Village!</NavLink></h1>
           </AppBar>
         <Route exact path="/smurf-form" render={(props) => <SmurfForm handleStateUpdate={this.handleStateUpdate} {...props}/>}/>
-        <Route exact path="/" render={(props) => <Smurfs smurfs={this.state.smurfs} {...props}/>}/>
+        <Route exact path="/" render={(props) => <Smurfs handleDelete={this.handleDelete} smurfs={this.state.smurfs} {...props}/>}/>
       </div>
     );
   }

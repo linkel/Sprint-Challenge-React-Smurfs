@@ -4,7 +4,7 @@
 }
 
 #nav-bar{
-  height: 60px;
+  height: 100px;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -23,6 +23,7 @@ a {
   padding: 5px 20px;
   background-color: rgb(45, 45, 184);
   transition: 0.1s ease-in-out;
+  border-radius: 3px;
 }
 
 a:hover {
@@ -32,4 +33,61 @@ a:hover {
 
 .active {
   background-color: rgb(32, 32, 145);
+}
+
+.SmurfForm {
+  padding: 50px;
+}
+
+.SmurfForm form {
+  display: flex;
+  flex-direction: column;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.SmurfForm form input {
+  margin: 10px 0;
+}
+
+.SmurfForm form button {
+  margin: 15px 0;
+}
+
+.Smurf_wrapper {
+  background-color: rgb(235, 236, 243);
+  margin: 5px auto;
+  max-width: 200px;
+  border-radius: 3px;
+  padding: 20px;
+  box-shadow: 0 4px 6px 0 hsla(0, 0%, 0%, 0.2);
+}
+
+.Smurf_wrapper button {
+  background-color: rgb(207, 44, 44);
+  color: white;
+}
+
+.Smurf_wrapper button:hover {
+  background-color: rgb(255, 0, 0);
+  color: white;
+}
+
+.Smurfs {
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+ul {
+  padding: 0;
+}
+
+.village {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 10px;
 }
