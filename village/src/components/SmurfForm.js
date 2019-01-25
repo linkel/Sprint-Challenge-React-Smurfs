@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 
+import Button from '@material-ui/core/Button';
+import axios from 'axios';
+
 class SmurfForm extends Component {
   constructor(props) {
     super(props);
@@ -13,7 +16,11 @@ class SmurfForm extends Component {
   addSmurf = event => {
     event.preventDefault();
     // add code to create the smurf using the api
-
+    axios
+      .post("http://localhost:3333/smurfs",this.state)
+      .then(res => this.props.handleStateUpdate(res.data))
+      .catch(err => console.log(err))
+    
     this.setState({
       name: '',
       age: '',
@@ -47,7 +54,7 @@ class SmurfForm extends Component {
             value={this.state.height}
             name="height"
           />
-          <button type="submit">Add to the village</button>
+          <Button variant="contained" type="submit">Add to the village</Button>
         </form>
       </div>
     );
