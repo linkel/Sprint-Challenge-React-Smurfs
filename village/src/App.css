@@ -1,3 +1,35 @@
 .App {
   text-align: center;
+  font-family: "Roboto";
+}
+
+#nav-bar{
+  height: 60px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+#nav-bar h1 {
+  text-transform: uppercase;
+  letter-spacing: 5px;
+  padding: 0 30px;
+}
+
+a {
+  text-decoration: none;
+  color: white;
+  padding: 5px 20px;
+  background-color: rgb(45, 45, 184);
+  transition: 0.1s ease-in-out;
+}
+
+a:hover {
+  color: rgb(198, 203, 223);
+  background-color: rgb(32, 32, 177);
+}
+
+.active {
+  background-color: rgb(32, 32, 145);
 }
