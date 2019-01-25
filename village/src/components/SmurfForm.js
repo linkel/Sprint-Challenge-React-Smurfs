@@ -7,7 +7,9 @@ import axios from 'axios';
 class SmurfForm extends Component {
   constructor(props) {
     super(props);
+    this.snackbar = React.createRef();
     this.state = {
+      id: '',
       name: '',
       age: '',
       height: ''
@@ -16,13 +18,31 @@ class SmurfForm extends Component {
 
   addSmurf = event => {
     event.preventDefault();
-    // add code to create the smurf using the api
-    axios
-      .post("http://localhost:3333/smurfs",this.state)
-      .then(res => this.props.handleStateUpdate(res.data))
-      .catch(err => console.log(err))
-    
+    //if id is provided
+    if (this.state.id.length > 0) {
+      console.log(this.state)
+      axios
+        .put(`http://localhost:3333/smurfs/${this.state.id}`, {
+          name: this.state.name,
+          age: this.state.age,
+          height: this.state.height
+        })
+        .then(this.showSnackBar())
+        .then(res => this.props.handleStateUpdate(res.data))
+        .catch(err => alert(err))
+    } else {
+      axios
+        .post("http://localhost:3333/smurfs", {
+          name: this.state.name,
+          age: this.state.age,
+          height: this.state.height
+        })
+        .then(this.showSnackBar())
+        .then(res => this.props.handleStateUpdate(res.data))
+        .catch(err => alert(err))
+    }
     this.setState({
+      id: '',
       name: '',
       age: '',
       height: ''
@@ -33,10 +53,23 @@ class SmurfForm extends Component {
     this.setState({ [e.target.name]: e.target.value });
   };
 
+  showSnackBar = () => {
+    let x = this.snackbar.current;
+    x.className = "show";
+    setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+  }
+
   render() {
     return (
       <div className="SmurfForm">
         <form onSubmit={this.addSmurf}>
+          Only provide ID if editing a smurf.
+          <Input
+            onChange={this.handleInputChange}
+            placeholder="id"
+            value={this.state.id}
+            name="id"
+          />
           <Input
             onChange={this.handleInputChange}
             placeholder="name"
@@ -57,6 +90,7 @@ class SmurfForm extends Component {
           />
           <Button variant="contained" type="submit">Add to the village</Button>
         </form>
+        <div id="snackbar" ref={this.snackbar}>Village Changed!</div>
       </div>
     );
   }
