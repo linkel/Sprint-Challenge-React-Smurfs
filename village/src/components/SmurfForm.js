@@ -20,7 +20,6 @@ class SmurfForm extends Component {
     event.preventDefault();
     //if id is provided
     if (this.state.id.length > 0) {
-      console.log(this.state)
       axios
         .put(`http://localhost:3333/smurfs/${this.state.id}`, {
           name: this.state.name,
@@ -37,8 +36,10 @@ class SmurfForm extends Component {
           age: this.state.age,
           height: this.state.height
         })
-        .then(this.showSnackBar())
-        .then(res => this.props.handleStateUpdate(res.data))
+        .then(res => { 
+          this.props.handleStateUpdate(res.data)
+          this.showSnackBar();
+        })
         .catch(err => alert(err))
     }
     this.setState({
@@ -56,7 +57,7 @@ class SmurfForm extends Component {
   showSnackBar = () => {
     let x = this.snackbar.current;
     x.className = "show";
-    setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+    setTimeout(function(){ x.className = x.className.replace("show", ""); }, 2000);
   }
 
   render() {
